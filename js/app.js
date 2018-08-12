@@ -30,8 +30,9 @@ var locations = [
 	{title: 'Tamsui', id: 27, location: {lat: 25.167818, lng: 121.445561}}
 ];
 var map;
-var Google;
-var gMarkers = [];
+var Google;	// Google class get when initMap get called
+var gMarkers = []; // store Google markers objects
+var isInfoWindowSet = {}; // indicate if the content of a Google infowindow object got set
 const FOUR_SQUARE_CLIENT_ID = 'CLIENT_ID';
 const FOUR_SQUARE_CLIENT_SECRET = 'CLIENT_SECRET';
 
@@ -188,47 +189,51 @@ function populateInfoWindow(marker, infowindow) {
 	'use strict';
 	// Check to make sure the infowindow is not already opened on this marker.
 	// If it is not opened, open it; otherwise, close it.
+	let id = marker.id;
 	if (infowindow.marker !== marker) {
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 		window.setTimeout(function () {
 			marker.setAnimation(null);
 		}, 750);
 		
-		// Get the location coordinate and feed it to FourSquare API.
-		var lat = marker.position.lat();
-		var lng = marker.position.lng();
-		$.ajax({
-			url: 'https://api.foursquare.com/v2/venues/search?' +
-				'll=' + lat + ',' + lng +
-				'&client_id=' + FOUR_SQUARE_CLIENT_ID +
-				'&client_secret=' + FOUR_SQUARE_CLIENT_SECRET +
-				'&v=20180810'
-		})
-			.done(function (data) {
-				var count = 0;
-				var venueNames = '<span>Places to go</span>';
-				for (var i = 0; i < data.response.venues.length; i++) {
-					if (count++ >= 5) { break; }	// List only 5 places in the infoWindow.
-					venueNames += '<li>' + data.response.venues[i].name + '</li>';
+		// For efficiency reasons, we only send an ajax request to Foursquare if we didn't send or
+		// get any successful response before.
+		if (!isInfoWindowSet.hasOwnProperty(id) ||
+				isInfoWindowSet[id] !== true) {
+			// Get the location coordinate and feed it to FourSquare API.
+			var lat = marker.position.lat();
+			var lng = marker.position.lng();
+			$.ajax({
+				url: 'https://api.foursquare.com/v2/venues/search?' +
+					'll=' + lat + ',' + lng +
+					'&client_id=' + FOUR_SQUARE_CLIENT_ID +
+					'&client_secret=' + FOUR_SQUARE_CLIENT_SECRET +
+					'&v=20180810',
+				beforeSend: function () {
+					// A loading message beforeSend
+					let content = infoWindowContent(marker.title, 'Loading information...');
+					infowindow.setContent(content);
 				}
-				var content = '';
-				content += '<div class="info-window">' +
-					'<header>' + marker.title + '</header>' +
-					'<section>' + venueNames + '</section>' +
-					'<footer>Powered by Foursquare.com</footer>' +
-					'</div>';
-				infowindow.setContent(content);
 			})
-			.fail(function () {
-				var content = '';
-				content += '<div class="info-window">' +
-					'<header>' + marker.title + '</header>' +
-					'<section>Oops... Something wrong happened.<br>Please check the internet connection and try again.</section>' +
-					'<footer></footer>' +
-					'</div>';
-				infowindow.setContent(content);
-			});
-			// Open the infowindow on the correct marker.
+				.done(function (data) {
+					var count = 0;
+					var venueNames = '<span>Places to go</span>';
+					for (var i = 0; i < data.response.venues.length; i++) {
+						if (count++ >= 5) { break; }	// List only 5 places in the infoWindow.
+						venueNames += '<li>' + data.response.venues[i].name + '</li>';
+					}
+					let content = infoWindowContent(marker.title, venueNames);
+					infowindow.setContent(content);
+					isInfoWindowSet[id] = true;
+				})
+				.fail(function () {
+					let content = infoWindowContent(
+						marker.title,
+						'Oops... Something wrong happened.<br>Please check the internet connection and try again.');
+					infowindow.setContent(content);
+				});
+		}
+		// Open the infowindow on the correct marker.
 		infowindow.marker = marker;
 		// Make sure the marker property is cleared if the infowindow is closed.
 		infowindow.addListener('closeclick', function () {
@@ -241,3 +246,16 @@ function populateInfoWindow(marker, infowindow) {
 	}
 }
 
+/**
+* @description Content for infowindow objects. Increase code reusability.
+* @param {string} head: a text string that will be shown in header line
+* @param {string} body: a text string that will be shown in body line
+* @return {string} content.
+*/
+function infoWindowContent(head, body) {
+	return '<div class="info-window">' +
+						'<header>' + head + '</header>' +
+						'<section>' + body + '</section>' +
+						'<footer>Powered by Foursquare.com</footer>' +
+						'</div>';
+}

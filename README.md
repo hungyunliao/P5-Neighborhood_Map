@@ -1,1 +1,1 @@
-![Filter list](gif/filter_list.gif "Filter list")
+![Filter list](gif/filter_list.gif =300x "Filter list")

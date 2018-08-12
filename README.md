@@ -1,1 +1,1 @@
-![Filter list](gif/filter_list.gif =300x "Filter list")
+<img src="gif/filter_list.gif" width="500px"/>

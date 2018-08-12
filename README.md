@@ -25,10 +25,18 @@ Showing info windows when users click on the list or the markers
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAP_API_KEY&callback=initMap"></script>
 ```
 
-3. In the `js/app.js` file, replace `CLIENT_ID` and `CLIENT_SECRET` with your Foursquare Client ID and client Secret respectively.
+3. In the `js/app.js` file, replace `CLIENT_ID` and `CLIENT_SECRET` with your Foursquare Client ID and Client Secret respectively.
 ```javascript
 const FOUR_SQUARE_CLIENT_ID = 'CLIENT_ID';
 const FOUR_SQUARE_CLIENT_SECRET = 'CLIENT_SECRET';
 ```
 
-4. Open/Run index.html in your browser.
+4. Open/Run `index.html` in your browser.
+
+## Skills
+1. KnockoutJS MVVM library
+2. Google Maps: Markers, InfoWindows, Boundary and Styles
+3. Mobile first, Responsive Web Design
+4. jQuery Ajax and error handling
+5. Site performance optimization
+6. Bootstrap CSS

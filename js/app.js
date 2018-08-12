@@ -32,6 +32,8 @@ var locations = [
 var map;
 var Google;
 var gMarkers = [];
+const FOUR_SQUARE_CLIENT_ID = 'CLIENT_ID';
+const FOUR_SQUARE_CLIENT_SECRET = 'CLIENT_SECRET';
 
 /* VIEWMODEL */
 var ViewModel = function () {
@@ -198,8 +200,9 @@ function populateInfoWindow(marker, infowindow) {
 		$.ajax({
 			url: 'https://api.foursquare.com/v2/venues/search?' +
 				'll=' + lat + ',' + lng +
-				'&client_id=FOURSQUARE_CLIENT_ID' +
-				'&client_secret=FOURSQUARE_SECRET&v=20180810'
+				'&client_id=' + FOUR_SQUARE_CLIENT_ID +
+				'&client_secret=' + FOUR_SQUARE_CLIENT_SECRET +
+				'&v=20180810'
 		})
 			.done(function (data) {
 				var count = 0;

@@ -1,1 +1,1 @@
-<img src="gif/filter_list.gif" width="500px"/>
+<img src="gif/filter_list.gif" width="800px"/>

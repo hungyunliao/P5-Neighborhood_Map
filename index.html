@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<title>Udacity Project | Neighborhood Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+	<body>
+		<section class="menu" data-bind="visible: shouldShowMenu">
+			<header class="menu-header">
+				<strong>Taipei |</strong> MRT&nbsp;&nbsp;<img src="./img/taipei_mrt.png" height="30px;">
+				<div class="powered-by">Powered by Google Maps | Foursquare | Bootstrap</div>
+			</header>
+				<div class="input-group">
+					<span class="input-group-addon filter-btn">Filter&nbsp;<span class="glyphicon glyphicon-filter" style="color: black;"></span></span>
+					<input type="text" class="form-control filter-bar" placeholder="Filter" data-bind="textInput: filterString, event: {keyup: filterMarker}">
+				</div>
+			<div class="list-view" data-bind="foreach: markersFiltered">
+				<button class="list-items" data-bind="text: title, click: function() { $parent.pickMarker(id); }"></button>
+			</div>
+		</section>
+		<section class="main-container">
+			<header class="root-header">
+        <span class="glyphicon glyphicon-menu-hamburger menu-icon" aria-hidden="true" data-bind="click: toggleMenu"></span>
+			</header>
+			<div data-bind="text: errorMsg"></div>
+			<div id="map">Loading Map...</div>
+		</section>
+		
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="js/lib/knockout-3.4.2.js"></script>
+  	<script src="js/app.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAP_API_KEY&callback=initMap"></script>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</body>
+</html>

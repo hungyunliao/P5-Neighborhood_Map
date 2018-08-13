@@ -259,3 +259,10 @@ function infoWindowContent(head, body) {
 						'<footer>Powered by Foursquare.com</footer>' +
 						'</div>';
 }
+
+/**
+* @description Show error message to users if there is any problems loading Google Maps APIs
+*/
+function errMap() {
+	document.getElementById('map').innerHTML = 'Sorry, Google Maps failed to load. Please check your internet connection and try again.';
+}

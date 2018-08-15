@@ -33,8 +33,8 @@ var map;
 var Google;	// Google class get when initMap get called
 var gMarkers = []; // store Google markers objects
 var isInfoWindowSet = {}; // indicate if the content of a Google infowindow object got set
-const FOUR_SQUARE_CLIENT_ID = 'CLIENT_ID';
-const FOUR_SQUARE_CLIENT_SECRET = 'CLIENT_SECRET';
+const FOUR_SQUARE_CLIENT_ID = 'KD5CAJCYV5TRQJUZSQO5KNMETWINP1AH0E0OYIDK02RBE14O';
+const FOUR_SQUARE_CLIENT_SECRET = 'P1W4TU3TNWOQ1XAKR1P04AJUZJT2D122NV4B2ZFQ0ZLLWHAH';
 
 /* VIEWMODEL */
 var ViewModel = function () {

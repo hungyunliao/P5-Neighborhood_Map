@@ -1,7 +1,7 @@
 # Neighborhood Map | Taipei Metro System (Taipei MRT)
 This is a Single-Page Application that lets people search/filter Taipei Metro stations (currently Tamsui line 淡水線) and get five interesting places to go nearby the station. This SPA uses KnockoutJS as the MVVM library and is powered by Google Maps, Foursquare and Bootstrap.
 
-Visit the webiste at <a href="https://taipeimetrofun.herokuapp.com/">https://taipeimetrofun.herokuapp.com/</a> (hosted on Heroku)
+Visit the webiste at <a href="https://taipeimetrofun.herokuapp.com/" target="_blank">https://taipeimetrofun.herokuapp.com/</a> (hosted on Heroku)
 
 ## Application Features
 Clean UI with a menu section that users can search/filter the stations by name
